@@ -14,11 +14,6 @@ type Chapter struct {
 
 const chtab = "chapters"
 
-func (c *Chapter) Init(id int) {
-	c.id = id
-	c.sel()
-}
-
 func (c *Chapter) Lessons() []*Lesson {
 	// TODO
 	return nil
@@ -28,15 +23,15 @@ func (c *Chapter) String() string {
 	return fmt.Sprintf("{ Chapter ID: %d, # Lessons: %d }", c.id, len(c.Lessons()))
 }
 
-func (c *Chapter) sel() {
+func (c *Chapter) Select(id int) {
 	q := fmt.Sprintf("SELECT id,title FROM %s WHERE id = $1;", chtab)
-	err := db.QueryRow(q, c.id).Scan(&c.id, &c.title)
+	err := db.QueryRow(q, id).Scan(&c.id, &c.title)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "babayaga: %v\n", err)
 	}
 }
 
-func (c *Chapter) ins() {
+func (c *Chapter) Insert() {
 	q := fmt.Sprintf(
 		"INSERT INTO %s (title) VALUES ($1)",
 		chtab)
@@ -52,11 +47,11 @@ func (c *Chapter) ins() {
 	c.id = int(id)
 }
 
-func (c *Chapter) upd() {
+func (c *Chapter) Update() {
 	// TODO
 }
 
-func (c *Chapter) del() {
+func (c *Chapter) Delete() {
 	// TODO
 }
 

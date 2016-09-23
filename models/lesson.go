@@ -12,11 +12,6 @@ type Lesson struct {
 
 const lsntab = "lessons"
 
-func (l *Lesson) Init(id int) {
-	l.id = id
-	l.sel()
-}
-
 func (l *Lesson) Chapter() *Chapter {
 	// TODO
 	return nil
@@ -38,15 +33,15 @@ func (l *Lesson) String() string {
 		l.id, l.chapterID, len(l.Grammars()))
 }
 
-func (l *Lesson) sel() {
+func (l *Lesson) Select(int id) {
 	q := fmt.Sprintf("SELECT id,chapter_id FROM %s WHERE id = $1", lsntab)
-	err := db.QueryRow(q, l.id).Scan(&l.id, &l.chapterID)
+	err := db.QueryRow(q, id).Scan(&l.id, &l.chapterID)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "babayaga: %v\n", err)
 	}
 }
 
-func (l *Lesson) ins() {
+func (l *Lesson) Insert() {
 	q := fmt.Sprintf(
 		"INSERT INTO %s (chapter_id) VALUES ($1)",
 		lsntab)
@@ -62,11 +57,11 @@ func (l *Lesson) ins() {
 	l.id = int(id)
 }
 
-func (l *Lesson) upd() {
+func (l *Lesson) Update() {
 	// TODO
 }
 
-func (l *Lesson) del() {
+func (l *Lesson) Delete() {
 	// TODO
 }
 

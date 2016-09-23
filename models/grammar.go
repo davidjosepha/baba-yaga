@@ -30,12 +30,15 @@ func (g *Grammar) String() string {
 	return fmt.Sprintf("{ Grammar ID: %d, Lesson ID: %d }", g.id, g.Lesson().id)
 }
 
-func (g *Grammar) sel() {
-	// TODO
-	// select from g.id
+func (g *Grammar) Select(int id) {
+	q := fmt.Sprintf("SELECT id,lesson_id,title,subtitle,text FROM %s WHERE id = $1", gramtab)
+	err := db.QueryRow(q, id).Scan(&g.id, &g.lessonID, &g.title, &g.subtitle, &g.text)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "babayaga: %v\n", err)
+	}
 }
 
-func (g *Grammar) ins() {
+func (g *Grammar) Insert() {
 	q := fmt.Sprintf(
 		"INSERT INTO %s (lesson_id,title,subtitle,text) VALUES ($1,$2,$3,$4)",
 		gramtab)
@@ -51,11 +54,11 @@ func (g *Grammar) ins() {
 	g.id = int(id)
 }
 
-func (g *Grammar) upd() {
+func (g *Grammar) Update() {
 	// TODO
 }
 
-func (g *Grammar) del() {
+func (g *Grammar) Delete() {
 	// TODO
 }
 
