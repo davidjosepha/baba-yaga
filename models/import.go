@@ -21,11 +21,11 @@ func parseJSON(f string) {
 
 	for _, chapter := range chapters {
 		var c Chapter
-		c.ins()
+		c.Insert()
 
 		for _, lesson := range chapter["lessons"] {
 			var l Lesson = Lesson{chapterID: c.id}
-			l.ins()
+			l.Insert()
 
 			for _, grammar := range lesson["grammars"] {
 				var g Grammar = Grammar{
@@ -33,7 +33,7 @@ func parseJSON(f string) {
 					title:    grammar["title"],
 					subtitle: grammar["subtitle"],
 					text:     grammar["text"]}
-				g.ins()
+				g.Insert()
 			}
 		}
 	}

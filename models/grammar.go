@@ -30,7 +30,7 @@ func (g *Grammar) String() string {
 	return fmt.Sprintf("{ Grammar ID: %d, Lesson ID: %d }", g.id, g.Lesson().id)
 }
 
-func (g *Grammar) Select(int id) {
+func (g *Grammar) Select(id int) {
 	q := fmt.Sprintf("SELECT id,lesson_id,title,subtitle,text FROM %s WHERE id = $1", gramtab)
 	err := db.QueryRow(q, id).Scan(&g.id, &g.lessonID, &g.title, &g.subtitle, &g.text)
 	if err != nil {

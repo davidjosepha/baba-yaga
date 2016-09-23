@@ -33,7 +33,7 @@ func (l *Lesson) String() string {
 		l.id, l.chapterID, len(l.Grammars()))
 }
 
-func (l *Lesson) Select(int id) {
+func (l *Lesson) Select(id int) {
 	q := fmt.Sprintf("SELECT id,chapter_id FROM %s WHERE id = $1", lsntab)
 	err := db.QueryRow(q, id).Scan(&l.id, &l.chapterID)
 	if err != nil {
